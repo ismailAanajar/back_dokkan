@@ -20,9 +20,11 @@
 @endphp
 <x-app-layout>
   <x-slot name="header">
-   <div class="flex justify-between items-center bg-slate-700 p-3 px-[2.5%]">
+   <div class="flex  items-center bg-slate-700 p-3 px-[2.5%] gap-4">
     <h1 class="font-bold text-blue-200 ">Products</h1>
     {{-- <a href="{{ route('admin.categories.trash') }}" class="text-white  focus:outline-none focus:ring-4 font-medium rounded-full text-sm px-5 py-2.5 text-center border border-yellow-500  ml-auto mr-5 hover:bg-yellow-600">Trash</a> --}}
+    <a href="{{ route('admin.products.category.index') }}" class="text-white  focus:outline-none focus:ring-4 font-medium rounded-full text-sm px-5 py-2.5 text-center border border-yellow-500 hover:bg-yellow-600">categories</a>
+    <a href="{{ route('admin.products.brand.index') }}" class="text-white  focus:outline-none focus:ring-4 font-medium rounded-full text-sm px-5 py-2.5 text-center border border-yellow-500 hover:bg-yellow-600">brands</a>
     <a href="{{ route('admin.products.create') }}" class="text-white  focus:outline-none focus:ring-4 font-medium rounded-full text-sm px-5 py-2.5 text-center border border-yellow-500 hover:bg-yellow-600">Create</a>
    </div>
   </x-slot>

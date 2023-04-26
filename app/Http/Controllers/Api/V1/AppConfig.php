@@ -14,14 +14,18 @@ class AppConfig extends Controller
         $forms = Form::with('inputs')->get();
         $design = Design::all();
 
-        $object = new \stdClass();
+        $frs = new \stdClass();
         foreach ($forms as $form) {
-            $object->{$form['name']} = $form->inputs;
+            $frs->{$form['name']} = $form->inputs;
+        }
+        $dsg = new \stdClass();
+        foreach ($design as $d) {
+            $dsg->{$d['property']} = $d->value;
         }
 
         return response()->json([
-            'forms' => $object,
-            'template' => $design
+            'forms' => $frs,
+            'template' => $dsg
         ]);
     }
 }

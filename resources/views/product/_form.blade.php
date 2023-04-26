@@ -39,7 +39,7 @@
   <x-forms.select label='Select category' name='category_id' default='select' :options="$categories" :value="$product->category_id"/>
 </div>
 <div>
-  <x-forms.select label='Select brand' name='brand_id' default='select' :options="$categories" :value="$product->category_id"/>
+  <x-forms.select label='Select brand' name='brand_id' default='select' :options="$brands" :value="$product->brand_id"/>
 </div>
 <div class="justify-self-start col-start-1">
   <x-forms.radiobox :options="$statusOptions" />

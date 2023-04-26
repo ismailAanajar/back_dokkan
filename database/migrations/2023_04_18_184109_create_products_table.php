@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->float('price');
             $table->string('image');
-            $table->string('description');
+            $table->tex('description');
             // $table->boolean('featured');
             $table->enum('status', ['active', 'draft', 'archived']);
             $table->json('options')->nullable();

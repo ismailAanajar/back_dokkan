@@ -16,6 +16,8 @@
     src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
     defer
     ></script>
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/tailwind.output.css') }}" /> --}}
+
     {{-- <script src="{{ asset('assets/js/charts-lines.js')}}" defer></script> --}}
     <script src="{{ asset('assets/admin/js/charts-pie.js')}}" defer></script>
     {{-- <script src="{{ asset('assets/js/init-alpine.js') }}"></script> --}}

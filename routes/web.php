@@ -3,8 +3,10 @@
 use App\Http\Controllers\Admin\AppController;
 use App\Http\Controllers\Admin\Auth;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\CmsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,6 +37,9 @@ Route::name('admin.')->middleware(['auth:admin'])->group(function () {
   Route::get('/app/design', [AppController::class, 'getDesign'])->name('app.design');
   Route::post('/app/design', [AppController::class, 'addDesign'])->name('app.design.add');
 
+  Route::get('/cms', [CmsController::class, 'index'])->name('cms.index');
+  Route::get('/cms/create', [CmsController::class, 'create'])->name('cms.create');
+
 
    Route::prefix('products')->name('products.')->group(function () {
         Route::controller(ProductController::class)->group(function () {
@@ -59,14 +64,14 @@ Route::name('admin.')->middleware(['auth:admin'])->group(function () {
         });
 
         Route::controller(BrandController::class)->prefix('brand')->name('brand.')->group(function () {
-            // Route::get('/', 'index')->name('index');
-            // Route::get('create', 'create')->name('create');
-            // Route::post('store', 'store')->name('store');
-            // Route::get('show', 'show')->name('show');
-            // Route::get('edit/{id}', 'edit')->name('edit');
-            // Route::post('update', 'update')->name('update');
-            // Route::post('activate', 'activate')->name('activate');
-            // Route::post('delete', 'delete')->name('delete');
+            Route::get('/', 'index')->name('index');
+            Route::get('create', 'create')->name('create');
+            Route::post('store', 'store')->name('store');
+            Route::get('show', 'show')->name('show');
+            Route::get('edit/{id}', 'edit')->name('edit');
+            Route::post('update', 'update')->name('update');
+            Route::post('activate', 'activate')->name('activate');
+            Route::post('delete', 'delete')->name('delete');
         });
 
         

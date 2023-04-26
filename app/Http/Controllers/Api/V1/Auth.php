@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Events\ForgotPassword;
 use App\Events\UserRegistered;
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Form;
 use App\Models\User;
 use Exception;
@@ -138,4 +139,24 @@ class Auth extends Controller
             'message' => 'your password has been updated'
         ]);
     }
+
+    public function profile()
+    {
+        $user = FacadesAuth::user();
+        $cart_total = collect(Cart::where('user_id', $user->id)->get())->sum(function($item) {
+            return $item->quantity * $item->product->price;
+        });
+        
+        return response()->json([
+            'userInfo' => [
+                'id' => $user->id,
+                'name' => $user->first_name.' '. $user->last_name ,
+                'email' => $user->email,
+                'cart' => ['items' => $user->cart()->with('product:id,name,price,image')->get(), 'total' => $cart_total],
+                'wishlist' => $user->wishlist()->with('product')->get(),
+                'orders' => $user->orders()->with('products:id,name,image','shipping_addr','billing_addr')->get(),
+                'addresses' => collect($user->addresses)->groupBy('type')
+            ]
+        ]);
+    } 
 }
