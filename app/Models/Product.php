@@ -13,7 +13,7 @@ class Product extends Model
 
     protected $fillable = ['name', 'category_id', 'brand_id', 'description', 'price', 'image', 'status', 'options'];
 
-    protected $appends = ['image_url'];
+    protected $appends = ['image_url', 'slug'];
 
     public function category()
     {
@@ -28,9 +28,22 @@ class Product extends Model
         $builder->when($filters['name'] ?? false, function ($query) use ($filters) {
             $query->where('name', 'like', "%{$filters['name']}%");
         });
+        $builder->when($filters['search'] ?? false, function ($query) use ($filters) {
+            $query->where('name', 'like', "%{$filters['search']}%");
+        });
+        $builder->when($filters['category_id'] ?? false, function ($query) use ($filters) {
+            $query->where('category_id',  $filters['category_id']);
+        });
+
+        $builder->when($filters['brand_id'] ?? false, function ($query) use ($filters) {
+            $query->where('brand_id',  $filters['brand_id']);
+        });
         
-        $builder->when($filters['price'] ?? false, function ($query) use ($filters) {
-            $query->where('price', '=', $filters['price']);
+        $builder->when($filters['price_min'] ?? false, function ($query) use ($filters) {
+            $query->where('price', '>=', $filters['price_min']);
+        });
+        $builder->when($filters['price_max'] ?? false, function ($query) use ($filters) {
+            $query->where('price', '<=', $filters['price_max']);
         });
         $builder->when($filters['status'] ?? false, function ($query) use ($filters) {
             $query->where('status', $filters['status']);
@@ -48,6 +61,11 @@ class Product extends Model
         else {
             return asset('storage/'. $this->image);
         }
+    }
+
+    public function getSlugAttribute()
+    {
+        return Str::slug($this->name);
     }
 
     public function orders(): BelongsToMany

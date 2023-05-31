@@ -2,11 +2,14 @@
 
 use App\Http\Controllers\Admin\AppController;
 use App\Http\Controllers\Admin\Auth;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CmsController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\MediaController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,7 +29,10 @@ Route::middleware('guest')->group(function() {
 });
 
 Route::name('admin.')->middleware(['auth:admin'])->group(function () {
+
   Route::get('/', [DashboardController::class, 'index'])->name('index');
+  Route::post('/user/show', [DashboardController::class, 'show'])->name('users.show');
+  Route::post('/orders/show', [DashboardController::class, 'showOrder'])->name('orders.dashboard.show');
   Route::post('/logout', [Auth::class, 'logout'])->name('logout');
   Route::get('/app/forms', [AppController::class, 'forms'])->name('app.index');
   Route::post('/app/forms', [AppController::class, 'addForm'])->name('app.forms');
@@ -39,6 +45,23 @@ Route::name('admin.')->middleware(['auth:admin'])->group(function () {
 
   Route::get('/cms', [CmsController::class, 'index'])->name('cms.index');
   Route::get('/cms/create', [CmsController::class, 'create'])->name('cms.create');
+  Route::get('/cms/codeEditor', [CmsController::class, 'cEditorIndex'])->name('cms.cEditor.index');
+  Route::post('/cms/codeEditor/store', [CmsController::class, 'cEditorStore'])->name('cms.cEditor.store');
+  Route::post('/cms/store', [CmsController::class, 'store'])->name('cms.store');
+
+  Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+  Route::get('/orders/{id}', [OrderController::class, 'edit'])->name('orders.edit');
+  Route::post('/orders/show/{id}', [OrderController::class, 'show'])->name('orders.show');
+  Route::post('/orders/change_status/{id}', [OrderController::class, 'changeStatus'])->name('orders.change_status');
+
+  Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+  Route::get('/blog/create', [BlogController::class, 'create'])->name('blog.create');
+  Route::post('/blog/store', [BlogController::class, 'store'])->name('blog.store');
+
+  Route::get('/media', [MediaController::class, 'index'])->name('media.index');
+  Route::post('/media/store', [MediaController::class, 'store'])->name('media.store');
+
+  
 
 
    Route::prefix('products')->name('products.')->group(function () {

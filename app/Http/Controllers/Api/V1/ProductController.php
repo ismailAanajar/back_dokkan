@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Events\OrderCreated;
 use App\Http\Controllers\Controller;
 use App\Models\Address;
 use App\Models\Brand;
@@ -19,9 +20,10 @@ use Throwable;
 
 class ProductController extends Controller
 {
-    public function getProducts()
+    public function getProducts(Request $request)
     {
-        $products = Product::all();
+        // return $request;
+        $products = Product::filter($request->query())->select('id','price', 'image', 'name', 'category_id')->get();
         $categories = Category::all();
         $brands = Brand::all();
         return response()->json([
@@ -35,7 +37,12 @@ class ProductController extends Controller
     {
         $product = Product::with('category:id,name', 'images')->where('id', $id)->first();
 
-        return response()->json($product);
+        $related_products = Product::where('category_id', $product->category_id)->get();
+
+        return response()->json([
+            'product' => $product,
+            'related_products' => $related_products
+        ]);
     }
 
 
@@ -76,7 +83,7 @@ class ProductController extends Controller
     }
     public function total()
     {
-        return collect(Cart::where('user_id', Auth::id()))->sum(function($item) {
+        return collect(Cart::where('user_id', Auth::id())->get())->sum(function($item) {
             return $item->quantity * $item->product->price;
         });
         
@@ -152,7 +159,6 @@ class ProductController extends Controller
         $cart = Cart::where('user_id', Auth::id())->get();
         $shipping_addr = Address::where('isSelected', 1)->where('type', 'shipping')->first();
         $billing_addr = Address::where('isSelected', 1)->where('type', 'billing')->first();
-        
         try {
          DB::beginTransaction();
             // foreach ($stores as $store_id => $items) {
@@ -172,6 +178,7 @@ class ProductController extends Controller
                     'user_id' => Auth::id(),
                     'shipping_addr_id' => $shipping_addr->id,
                     'billing_addr_id' => $billing_addr->id,
+                    'total' => $this->total()
                 ]);
 
                 foreach ($cart as $item) {
@@ -185,6 +192,8 @@ class ProductController extends Controller
                 }
 
                 Cart::where('user_id', Auth::id())->delete();
+
+                // event(new OrderCreated($order));
 
             // }
          DB::commit();

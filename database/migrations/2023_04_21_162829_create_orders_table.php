@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-             $table->foreignId('shipping_addr_id')->constrained('addresses')->cascadeOnDelete();
-             $table->foreignId('billing_addr_id')->constrained('addresses')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('shipping_addr_id')->constrained('addresses')->cascadeOnDelete();
+            $table->foreignId('billing_addr_id')->constrained('addresses')->cascadeOnDelete();
             $table->unsignedBigInteger('number');
             $table->enum('status', ['pending', 'processing', 'completed', 'canceled', 'refund'])->default('pending');
             $table->string('payment_method')->default('COD');
             $table->enum('payment_status', ['pending', 'failed', 'done'])->default('pending');
+            $table->unsignedBigInteger('total');
             $table->timestamps();
         });
     }

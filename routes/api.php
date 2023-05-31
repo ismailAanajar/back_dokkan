@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\V1\AppConfig;
 use App\Http\Controllers\Api\V1\Auth;
+use App\Http\Controllers\Api\V1\CmsController;
 use App\Http\Controllers\Api\V1\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -35,10 +37,15 @@ Route::prefix('v1')->group(function() {
     Route::get('app/config', [AppConfig::class, 'getConfig']);
     Route::get('products', [ProductController::class, 'getProducts']);
     Route::get('products/{id}', [ProductController::class, 'getProduct']);
+    Route::get('cms/home', [CmsController::class, 'home']);
+    Route::get('cms/about', [CmsController::class, 'about']);
+    Route::get('/blog', [BlogController::class, 'index']);
+    Route::get('/blog/{slug}', [BlogController::class, 'post']);
     
 
     
     Route::middleware('guest')->group(function() {
+      Route::post('auth/login-as-user', [Auth::class, 'loginAsUser']);
         Route::post('auth/login', [Auth::class, 'login']);
         Route::post('auth/register', [Auth::class, 'register']);
         Route::post('auth/verify_email', [Auth::class, 'emailVerification']);

@@ -35,9 +35,6 @@
                           Name
                         </th>
                         <th scope="col" class="py-3 px-6">
-                            parent
-                        </th>
-                        <th scope="col" class="py-3 px-6">
                             Image
                         </th>
                         <th scope="col" class="py-3 px-6">
@@ -45,9 +42,6 @@
                         </th>
                         <th scope="col" class="py-3 px-6">
                             Status
-                        </th>
-                        <th scope="col" class="py-3 px-6">
-                            products num
                         </th>
                         <th scope="col" class="py-3 px-6">
                             Action
@@ -58,15 +52,13 @@
                 @forelse ($categories as $category)
                     <tr class="bg-white dark:bg-gray-800 hover:bg-gray-700 dark:hover:bg-gray-700">
                         <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $category->name }}</td>
-                        <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $category->parent->name }}</td>
                         <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <img src="{{ asset($category->image_url) }}" alt="" class="w-8 max-h-9">
                         </td>
                         <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $category->created_at }}</td>
                         <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $category->status }}</td>
-                        <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $category->p_count }}</td>
                         <td class="flex items-center py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <a href="{{ route('admin.categories.show', $category->id) }}" class="!bg-transparent text-blue-700 border border-blue-700 hover:!bg-blue-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-1.5 py-1   text-center inline-flex items-center mr-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800">
+                            {{-- <a href="{{ route('admin.categories.show', $category->id) }}" class="!bg-transparent text-blue-700 border border-blue-700 hover:!bg-blue-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-1.5 py-1   text-center inline-flex items-center mr-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800">
                                 <svg class="w-4 h-4 text-blue-500 fill-blue-500 hover:fill-white" version="1.1" id="Capa_1"
                                         width="800px" height="800px" viewBox="0 0 442.04 442.04"
                                         xml:space="preserve">
@@ -91,7 +83,7 @@
                                         </g>
                                     </g>
                                 </svg>
-                            </a>
+                            </a> --}}
                             <a href="{{ route('admin.products.category.edit', $category->id) }}" class="!bg-transparent text-green-700 border border-green-700 hover:!bg-green-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-1.5 py-1   text-center inline-flex items-center mr-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:focus:ring-green-800">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                             </a>

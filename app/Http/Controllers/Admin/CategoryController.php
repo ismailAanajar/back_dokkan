@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Traits\FileUpload;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class CategoryController extends Controller
     use FileUpload;
     public function index()
     {
-         $categories = Category::filter(request()->query())->paginate(2);
+         $categories = Category::filter(request()->query())->paginate(5);
         return view('product.category.index', compact('categories'));
     }
 

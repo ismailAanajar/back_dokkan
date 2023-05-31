@@ -7,7 +7,7 @@
       class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" 
       href="#"
     >
-      Windmill
+      Dokkan panel
     </a>
     <ul class="mt-6">
      @foreach ($items as $item)

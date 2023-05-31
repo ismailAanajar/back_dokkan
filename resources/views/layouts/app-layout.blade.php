@@ -16,11 +16,18 @@
     src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
     defer
     ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
+    integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
     {{-- <link rel="stylesheet" href="{{ asset('assets/css/tailwind.output.css') }}" /> --}}
 
     {{-- <script src="{{ asset('assets/js/charts-lines.js')}}" defer></script> --}}
-    <script src="{{ asset('assets/admin/js/charts-pie.js')}}" defer></script>
+    {{-- <script src="{{ asset('assets/admin/js/charts-pie.js')}}" defer></script> --}}
     {{-- <script src="{{ asset('assets/js/init-alpine.js') }}"></script> --}}
+     @stack('head')
     @vite(['resources/css/app.css', 'resources/js/app.js',])
   </head>
   <body class="scrollbar-thin scrollbar-thumb-yellow-700 scrollbar-track-gray-300  overflow-y-auto">

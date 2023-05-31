@@ -4,8 +4,14 @@
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
+import './editor';
+
 import Alpine from 'alpinejs';
 import axios from 'axios';
+
+// resources/js/app.js
+
+
 
 window.axios = axios;
 
